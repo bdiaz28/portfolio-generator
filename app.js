@@ -10,30 +10,36 @@ const inquirer = require('inquirer');
 
 // .then(answers => console.log(answers));
 
-const promptUser = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is your name?"
-    },
-    {
-      type: "input",
-      name: "github",
-      message: "Enter your GitHub Username"
-    },
-    {
-      input: "input",
-      name: "about",
-      message: "Provide some information about yourself."
-    }
+// const promptUser = () => {
+//   return inquirer.prompt([
+//     {
+//       type: "input",
+//       name: "name",
+//       message: "What is your name?"
+//     },
+//     {
+//       type: "input",
+//       name: "github",
+//       message: "Enter your GitHub Username"
+//     },
+//     {
+//       input: "input",
+//       name: "about",
+//       message: "Provide some information about yourself."
+//     }
     
-  ])
-};
+//   ])
+// };
 
-promptUser().then(answers => console.log(answers));
+// promptUser().then(answers => console.log(answers));
 
-const promptProject = () => {
+const promptProject = portfolioData => {
+portfolioData.projects = [];
+// if there's no 'projects' array propert, create one
+if (!portfolioData.projects){
+  portfolioData.projects = [];
+}
+
   console.log(` 
   ==================
   Add a New Project
@@ -73,13 +79,23 @@ const promptProject = () => {
       message: 'Would you like to enter another project?',
       default: false
     }
+  
+    .then(projectData => {
+      portfolioData.projects.push(projectData);
+      if (projectData.confirmAddProject){
+        return promptProject(portfolioData);
+      } else {
+        return portfolioData;
+      }
+    })
   ]);
 };
 
 promptUser()
-.then(answers => console.log(answers))
 .then(promptProject)
-.then(projectAnswers => console.log(projectAnswers));
+.then(portfolioData => {
+  console.log(portfolioData);
+});
 
 // const fs = require('fs');
 // const generatePage = require('./src/page-template');
