@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bdiaz28/portfolio-generator/issues"
   },
-  "homepage": "https://github.com/bdiaz28/portfolio-generator#readme"
+  "homepage": "https://github.com/bdiaz28/portfolio-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.5"
+  }
 }
